@@ -3,7 +3,7 @@ import requests
 import geocoder
 
 st.markdown("# Hello streamlit")
-lLocation = geocoder.google("Amsterdam, Nederland")
+lLocation = geocoder.osm("Amsterdam, Nederland")
 st.markdown("Your location: {}".format(lLocation))
 
 resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s" 
