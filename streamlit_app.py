@@ -45,7 +45,9 @@ dData = verwerk_neerslag(resp.text)
 fig = neerslag_plot(dData)
 plot = st.plotly_chart(fig,use_container_width=True)
 
-while st.checkbox("Blijfen updaten"):
+update = st.checkbox("Blijfen updaten")
+
+while update:
     resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s" 
         % (lLocation[0], lLocation[1]))
 
