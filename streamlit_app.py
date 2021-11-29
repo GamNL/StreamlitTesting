@@ -9,4 +9,4 @@ st.markdown("Your location: {}".format(lLocation))
 resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s" 
         % (lLocation[0], lLocation[1]))
 st.markdown("## Weather info")
-st.write(resp.text)
+st.text(resp.text)
