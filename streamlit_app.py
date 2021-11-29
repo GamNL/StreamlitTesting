@@ -9,4 +9,4 @@ st.markdown("Your location: {}".format(lLocation))
 resp = requests.get("https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&exclude=hourly,daily&appid=%s&units=imperial" 
         % (lLocation[0], lLocation[1], "43eda1fbcf0b07043eeeac93ae54e1e0"))
 st.markdown("## Weather info")
-st.write(resp)
+st.write(resp.text)
