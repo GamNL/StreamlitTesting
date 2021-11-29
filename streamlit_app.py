@@ -2,6 +2,7 @@ import streamlit as st
 import requests 
 import geocoder
 import plotly.graph_objects as go
+st.set_page_config(layout="wide")
 
 
 def verwerk_neerslag(sWeer):
@@ -31,7 +32,7 @@ st.markdown("Locatie lat long: {}".format(lLocation))
 resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s" 
         % (lLocation[0], lLocation[1]))
 
-st.markdown("## Weather info")
+st.markdown("## Plot neerslag")
 dData = verwerk_neerslag(resp.text)
 fig = go.Figure(go.Bar(x=dData["Tijd"],y=dData["Neerslag"]))
 fig.update_layout(title="Locatie {}".format(sLocation))
