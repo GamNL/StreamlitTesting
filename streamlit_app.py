@@ -33,5 +33,8 @@ resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s
 
 st.markdown("## Weather info")
 dData = verwerk_neerslag(resp.text)
-st.write(dData)
-st.plotly_chart(go.Figure(go.Bar(x=dData["Tijd"],y=dData["Neerslag"])))
+fig = go.Figure(go.Bar(x=dData["Tijd"],y=dData["Neerslag"]))
+fig.update_layout(title="Locatie {}".format(sLocation))
+fig.update_yaxes(title="Neerslag")
+fig.update_xaxes(title="Tijd")
+st.plotly_chart()
