@@ -3,6 +3,7 @@ import requests
 import geocoder
 import plotly.graph_objects as go
 st.set_page_config(layout="wide")
+import time
 
 
 def verwerk_neerslag(sWeer):
@@ -20,22 +21,34 @@ def verwerk_neerslag(sWeer):
 
     return dRet
 
-    
+
+
+def neerslag_plot(dData):
+    fig = go.Figure(go.Bar(x=dData["Tijd"],y=dData["Neerslag"]))
+    fig.update_layout(title="Locatie {}".format(sLocation))
+    fig.update_yaxes(title="Neerslag[mm/u]")
+    fig.update_xaxes(title="Tijd")
 
 
 st.markdown("# Basic buien radar")
 sLocation = st.text_input("Plaats:","Amsterdam")
 
 lLocation = geocoder.osm(sLocation).latlng
-st.markdown("Locatie lat long: {}".format(lLocation))
 
 resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s" 
         % (lLocation[0], lLocation[1]))
 
 st.markdown("## Plot neerslag")
 dData = verwerk_neerslag(resp.text)
-fig = go.Figure(go.Bar(x=dData["Tijd"],y=dData["Neerslag"]))
-fig.update_layout(title="Locatie {}".format(sLocation))
-fig.update_yaxes(title="Neerslag[mm/u]")
-fig.update_xaxes(title="Tijd")
-st.plotly_chart(fig,use_container_width=True)
+fig = neerslag_plot(dData)
+plot = st.plotly_chart(fig,use_container_width=True)
+
+while st.checkbox("Blijfen updaten"):
+    resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s" 
+        % (lLocation[0], lLocation[1]))
+
+    dData = verwerk_neerslag(resp.text)
+    fig = neerslag_plot(dData)
+
+    plot.plotly_chart(fig)
+    time.sleep(1)
