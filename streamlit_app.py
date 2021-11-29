@@ -13,7 +13,7 @@ def verwerk_neerslag(sWeer):
         lRes = sRow.split("|")
         if len(lRes) > 1 :
             dRet["Tijd"].append(lRes[1])
-            dRet["Neerslag"].append(lRes[0])
+            dRet["Neerslag"].append(float(lRes[0]))
 
     return dRet
 
@@ -32,3 +32,4 @@ resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s
 st.markdown("## Weather info")
 dData = verwerk_neerslag(resp.text)
 st.write(dData)
+st.plotly_chart(go.Figure(go.Bar(x=dData["Tijd"],y=dData["Neerslag"])))
