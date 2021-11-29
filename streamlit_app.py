@@ -37,7 +37,7 @@ sLocation = st.text_input("Plaats:","Amsterdam")
 
 lLocation = geocoder.osm(sLocation).latlng
 
-resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s" 
+resp = requests.get("https://gps.buienradar.nl/getrr.php?lat=%s&lon=%s" 
         % (lLocation[0], lLocation[1]))
 
 st.markdown("## Plot neerslag")
@@ -48,7 +48,7 @@ plot = st.plotly_chart(fig,use_container_width=True)
 update = st.checkbox("Blijfen updaten")
 
 while update:
-    resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s" 
+    resp = requests.get("https://gps.buienradar.nl/getrr.php?lat=%s&lon=%s" 
         % (lLocation[0], lLocation[1]))
 
     dData = verwerk_neerslag(resp.text)
