@@ -29,6 +29,8 @@ def neerslag_plot(dData):
     fig.update_yaxes(title="Neerslag[mm/u]")
     fig.update_xaxes(title="Tijd")
 
+    return fig
+
 
 st.markdown("# Basic buien radar")
 sLocation = st.text_input("Plaats:","Amsterdam")
