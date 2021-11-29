@@ -13,7 +13,9 @@ def verwerk_neerslag(sWeer):
         lRes = sRow.split("|")
         if len(lRes) > 1 :
             dRet["Tijd"].append(lRes[1])
-            dRet["Neerslag"].append(10**((float(lRes[0].replace(",",".")-109)/32)))
+            dRet["Neerslag"].append(float(lRes[0].replace(",",".")))
+            if dRet["Neerslag"][-1]!= 0:
+                dRet["Neerslag"][-1] = 10**((dRet["Neerslag"][-1]-109)/32)
 
     return dRet
 
