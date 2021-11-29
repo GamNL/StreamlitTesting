@@ -9,6 +9,7 @@ def verwerk_neerslag(sWeer):
     dRet = {"Tijd":[],"Neerslag":[]}
 
     for sRow in lRows :
+        st.write(sRow)
         lRes = sRow.split("|")
         dRet["Tijd"].append(lRes[1])
         dRet["Neerslag"].append(lRes[0])
@@ -28,6 +29,5 @@ resp = requests.get("https://gpsgadget.buienradar.nl/data/raintext?lat=%s&lon=%s
         % (lLocation[0], lLocation[1]))
 
 st.markdown("## Weather info")
-st.text(resp.text)
 dData = verwerk_neerslag(resp.text)
 st.write(dData)
