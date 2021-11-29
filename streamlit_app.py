@@ -9,8 +9,9 @@ def verwerk_neerslag(sWeer):
     dRet = {"Tijd":[],"Neerslag":[]}
 
     for sRow in lRows :
-        st.write(sRow)
+        
         lRes = sRow.split("|")
+        st.write(lRes)
         dRet["Tijd"].append(lRes[1])
         dRet["Neerslag"].append(lRes[0])
 
